@@ -27,3 +27,39 @@
  
     counter.textContent = left + (left === 1 ? ' item left' : ' items left');
   }});
+
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const text = input.value.trim();
+ 
+    if (text === '') {
+      errorMsg.classList.remove('hidden');
+      return;
+    }
+    errorMsg.classList.add('hidden');
+ 
+    const li = document.createElement('li');
+    const span = document.createElement('span');
+    span.textContent = text;
+    const btn = document.createElement('button');
+    btn.textContent = 'Delete';
+    btn.className = 'delete-btn';
+ 
+    li.appendChild(span);
+    li.appendChild(btn);
+    list.appendChild(li);
+ 
+    input.value = '';
+    update();
+  });
+ 
+  list.addEventListener('click', function (e) {
+    if (e.target.classList.contains('delete-btn')) {
+      e.target.parentElement.remove();
+    } else if (e.target.tagName === 'SPAN') {
+      e.target.parentElement.classList.toggle('completed');
+    }
+    update();
+  });
+
+
